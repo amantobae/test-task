@@ -8,13 +8,13 @@ part 'drinks_state.dart';
 
 class DrinksBloc extends Bloc<DrinksEvent, DrinksState> {
   final DrinkUseCases drinkUseCases;
+
   DrinksBloc({required this.drinkUseCases}) : super(DrinksInitialState()) {
-    on<DrinksEvent>((event, emit) {});
     on<GetDrinkEvent>(
       (event, emit) async {
         try {
-          final Drink drink = await drinkUseCases.getDrink(event.name);
-          emit(DrinksLoadedState(drink: drink));
+          final List<Drink> drinks = await drinkUseCases.getDrink(event.name);
+          emit(DrinksLoadedState(drink: drinks)); // Передаем список
         } catch (e) {
           emit(DrinksErrorState());
         }

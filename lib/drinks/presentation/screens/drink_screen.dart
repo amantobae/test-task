@@ -47,26 +47,39 @@ class _DrinkScreenState extends State<DrinkScreen> {
         },
         builder: (context, state) {
           if (state is DrinksLoadedState) {
-            final drinkInfo = state.drink;
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 30),
                     CustomTextfield(
                       nameController: nameController,
                       onSubmitted: getDrinkByName,
                     ),
-                    const SizedBox(height: 50),
-                    DrinkCard(
-                      imageURL: drinkInfo.strDrinkThumb ?? "",
-                      name: drinkInfo.strDrink ?? "",
-                      type: drinkInfo.strAlcoholic ?? "",
-                      category: drinkInfo.strCategory ?? "",
-                      price: "550",
-                    )
+                    const SizedBox(height: 20),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemCount: state.drink.length,
+                      itemBuilder: (context, index) {
+                        final drink = state.drink[index];
+                        return DrinkCard(
+                          imageURL: drink.strDrinkThumb ?? "",
+                          name: drink.strDrink ?? "",
+                          type: drink.strAlcoholic ?? "",
+                          category: drink.strCategory ?? "",
+                          price: "550",
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

@@ -6,7 +6,7 @@ sealed class DrinksState {}
 final class DrinksInitialState extends DrinksState {}
 
 class DrinksLoadedState extends DrinksState {
-  final Drink drink;
+  final List<Drink> drink;
 
   DrinksLoadedState({required this.drink});
 }

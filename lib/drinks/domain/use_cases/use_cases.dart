@@ -6,6 +6,6 @@ class DrinkUseCases {
 
   DrinkUseCases({required this.drinkRepository});
 
-  Future<Drink> getDrink(String name) async =>
+  Future<List<Drink>> getDrink(String name) async =>
       await drinkRepository.getDrink(name);
 }
